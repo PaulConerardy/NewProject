@@ -1,0 +1,6 @@
+{
+    "money_cut_off": 10000,
+    "commission_cut_off": 0.9,
+    "group_by_time": 1,
+    "top_n_suspicious": 10
+}
