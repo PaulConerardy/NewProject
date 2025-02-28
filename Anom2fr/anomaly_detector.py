@@ -16,6 +16,26 @@ class AMLAnomalyDetector:
         )
         self.scaler = StandardScaler()
         
+    def handle_missing_values(self, df):
+        """Handle missing values based on variable type"""
+        df_cleaned = df.copy()
+        
+        # Get numeric and non-numeric columns
+        numeric_columns = df_cleaned.select_dtypes(include=['int64', 'float64']).columns
+        categorical_columns = df_cleaned.select_dtypes(exclude=['int64', 'float64']).columns
+        
+        # Handle numeric columns: fill with median
+        for col in numeric_columns:
+            if df_cleaned[col].isnull().any():
+                df_cleaned[col] = df_cleaned[col].fillna(df_cleaned[col].median())
+        
+        # Handle categorical columns: fill with mode
+        for col in categorical_columns:
+            if df_cleaned[col].isnull().any():
+                df_cleaned[col] = df_cleaned[col].fillna(df_cleaned[col].mode()[0])
+        
+        return df_cleaned
+      
     def prepare_features(self, df):
         """Préparer les caractéristiques pour le modèle"""
         feature_columns = [
