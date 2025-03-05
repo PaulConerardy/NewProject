@@ -1,9 +1,11 @@
 from data_generator import TransactionDataGenerator
 from network_analysis import NetworkAnalysis
 from detection_patterns import DetectionPatterns
+from alert_system import AlertSystem
 import matplotlib.pyplot as plt
 import networkx as nx
 import pandas as pd
+import os
 
 def visualize_network(G, communities):
     """Fonction d'aide pour visualiser le réseau"""
@@ -101,39 +103,68 @@ def main():
     rapid_movement_entities = detection.detect_rapid_movement(transaction_data, entity_data, G)
     print(f"Identifié {len(rapid_movement_entities)} entités impliquées dans des mouvements rapides de fonds")
     
+    # Regrouper les résultats de l'analyse de réseau
+    network_results = {
+        'metrics': metrics,
+        'bridge_entities': bridge_entities,
+        'communities': communities,
+        'community_mapping': community_mapping,
+        'flow_metrics': flow_metrics
+    }
+    
+    # Regrouper les résultats de la détection de schémas
+    pattern_results = {
+        'structuring_entities': structuring_entities,
+        'smurfing_entities': smurfing_entities,
+        'rapid_movement_entities': rapid_movement_entities,
+        'money_mules': money_mules,
+        'structured_deposits': structured_deposits,
+        'underground_banking': underground_banking
+    }
+    
+    # Générer des alertes basées sur les résultats de détection
+    print("\nGénération des alertes...")
+    alert_system = AlertSystem(alert_threshold=50)
+    alerts = alert_system.generate_alerts(entity_data, transaction_data, network_results, pattern_results)
+    
+    if not alerts.empty:
+        print(f"Généré {len(alerts)} alertes")
+        print("\nTop 5 alertes par score de risque :")
+        print(alerts.head())
+        
+        # Afficher le résumé des alertes
+        alert_summary = alert_system.get_alert_summary()
+        print("\nRésumé des alertes :")
+        print(f"Total des alertes : {alert_summary['total_alerts']}")
+        print(f"Priorité élevée : {alert_summary['priority']['high']}")
+        print(f"Priorité moyenne : {alert_summary['priority']['medium']}")
+        print(f"Priorité faible : {alert_summary['priority']['low']}")
+    else:
+        print("Aucune alerte générée")
+    
     # Visualiser le réseau
     visualize_network(G, communities)
     
     # Sauvegarder les résultats
     results_dir = '/Users/paulconerardy/Documents/Trae/fr_v2/results'
-    import os
     if not os.path.exists(results_dir):
         os.makedirs(results_dir)
     
     # Sauvegarder les métriques du réseau
     metrics.to_csv(os.path.join(results_dir, 'network_metrics.csv'), index=False)
     
-    # Sauvegarder les entités suspectes
-    if not money_mules.empty:
-        money_mules.to_csv(os.path.join(results_dir, 'money_mules.csv'), index=False)
-    
-    if not structured_deposits.empty:
-        structured_deposits.to_csv(os.path.join(results_dir, 'structured_deposits.csv'), index=False)
-    
-    if not underground_banking.empty:
-        underground_banking.to_csv(os.path.join(results_dir, 'underground_banking.csv'), index=False)
-    
-    pd.DataFrame({'entity_id': structuring_entities}).to_csv(
-        os.path.join(results_dir, 'structuring_entities.csv'), index=False
-    )
-    
-    pd.DataFrame({'entity_id': smurfing_entities}).to_csv(
-        os.path.join(results_dir, 'smurfing_entities.csv'), index=False
-    )
-    
-    pd.DataFrame({'entity_id': rapid_movement_entities}).to_csv(
-        os.path.join(results_dir, 'rapid_movement_entities.csv'), index=False
-    )
+    # Sauvegarder les alertes
+    if not alerts.empty:
+        alerts.to_csv(os.path.join(results_dir, 'alerts.csv'), index=False)
+        
+        # Sauvegarder les alertes par priorité
+        high_priority = alerts[alerts['priority'] == 'Élevée']
+        if not high_priority.empty:
+            high_priority.to_csv(os.path.join(results_dir, 'high_priority_alerts.csv'), index=False)
+        
+        medium_priority = alerts[alerts['priority'] == 'Moyenne']
+        if not medium_priority.empty:
+            medium_priority.to_csv(os.path.join(results_dir, 'medium_priority_alerts.csv'), index=False)
     
     print(f"\nRésultats sauvegardés dans {results_dir}")
 
