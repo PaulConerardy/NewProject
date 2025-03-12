@@ -1,0 +1,2 @@
+entity_id,entity_name,entity_type,rule_score,network_score,combined_score,is_suspicious,triggered_rules_count,network_patterns_count
+326895,David Thomas,Particulier,26,0.0,15.6,True,6,0

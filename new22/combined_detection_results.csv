@@ -1,0 +1,501 @@
+entity_id,entity_name,entity_type,rule_score,network_score,combined_score,is_suspicious,triggered_rules_count,network_patterns_count
+958130,John Rodriguez,Joint,5,0.0,3.0,False,2,0
+427730,David Brown,Particulier,5,0.0,3.0,False,3,0
+815707,Barbara Williams,Particulier,12,0.0,7.199999999999999,False,3,0
+332360,Jane Smith,Association,14,0.0,8.4,False,2,0
+950083,Global Enterprises Ltd.,Entreprise,7,0.0,4.2,False,3,0
+501574,Susan Smith,Trust,1,0.0,0.6,False,1,0
+861319,Barbara Thomas,Joint,1,0.0,0.6,False,1,0
+720407,Mark Rodriguez,Trust,0,0.0,0.0,False,0,0
+942700,Tech Solutions Corp.,Association,10,0.0,6.0,False,4,0
+198907,James Rodriguez,Particulier,0,0.0,0.0,False,0,0
+677390,James Brown,Trust,4,0.0,2.4,False,2,0
+753898,Sarah Anderson,Association,17,0.0,10.2,False,3,0
+826353,Reliable Solutions Group,Joint,7,0.0,4.2,False,2,0
+355021,Apex Corporation International,Particulier,5,0.0,3.0,False,2,0
+396635,Thomas Williams,Particulier,6,0.0,3.5999999999999996,False,3,0
+599397,Susan Anderson,Association,4,0.0,2.4,False,1,0
+238394,Michael Johnson,Particulier,17,0.0,10.2,False,6,0
+204180,Maria Williams,Particulier,0,0.12307692307692308,0.04923076923076924,False,0,0
+693128,Global Enterprises Partners,Association,1,0.0,0.6,False,1,0
+501058,Jennifer Miller,Joint,8,0.0,4.8,False,3,0
+813884,Premier Services Associates,Entreprise,1,0.0,0.6,False,1,0
+787277,William Williams,Association,12,0.0,7.199999999999999,False,3,0
+487477,Emma Jackson,Association,1,0.0,0.6,False,1,0
+483366,Innovative Systems International,Particulier,1,0.0,0.6,False,1,0
+348041,Barbara Garcia,Association,8,0.0,4.8,False,3,0
+249715,Jane Garcia,Joint,5,0.0,3.0,False,2,0
+680828,Tech Solutions Associates,Entreprise,0,0.0,0.0,False,0,0
+766563,Michael Davis,Particulier,12,0.0,7.199999999999999,False,4,0
+390421,Reliable Solutions Associates,Particulier,0,0.0,0.0,False,0,0
+868043,Strategic Partners International,Entreprise,1,0.0,0.6,False,1,0
+381981,Daniel Jones,Joint,7,0.12307692307692308,4.24923076923077,False,3,0
+160423,Dynamic Holdings Corp.,Entreprise,3,0.0,1.7999999999999998,False,2,0
+743966,Barbara Jackson,Particulier,15,0.0,9.0,False,5,0
+134677,Mark Thomas,Trust,4,0.0,2.4,False,1,0
+850827,Elite Consulting Associates,Particulier,1,0.0,0.6,False,1,0
+568449,David Martin,Association,3,0.0,1.7999999999999998,False,2,0
+742848,Jane Brown,Association,0,0.0,0.0,False,0,0
+516359,Emma Thomas,Joint,4,0.0,2.4,False,2,0
+577309,Thomas Taylor,Joint,2,0.0,1.2,False,1,0
+863934,Daniel Martin,Trust,11,0.0,6.6,False,2,0
+163556,Dynamic Holdings Inc.,Entreprise,4,0.0,2.4,False,2,0
+568436,Sarah Jackson,Joint,0,0.0,0.0,False,0,0
+561124,Quantum Innovations Associates,Association,4,0.0,2.4,False,2,0
+583550,Elizabeth Miller,Joint,4,0.0,2.4,False,1,0
+648913,William Martin,Trust,1,0.0,0.6,False,1,0
+471136,Precision Manufacturing LLC,Particulier,2,0.0,1.2,False,1,0
+606404,Quantum Innovations Group,Entreprise,1,0.0,0.6,False,1,0
+332335,Precision Manufacturing Ltd.,Joint,11,0.0,6.6,False,2,0
+103717,Emma Jackson,Association,5,0.0,3.0,False,2,0
+203398,Precision Manufacturing Inc.,Particulier,12,0.0,7.199999999999999,False,4,0
+640659,Patricia Smith,Association,13,0.0,7.8,False,2,0
+102593,Jennifer Wilson,Particulier,11,0.0,6.6,False,4,0
+660069,Lisa Thompson,Trust,4,0.0,2.4,False,2,0
+755900,Global Enterprises LLC,Entreprise,4,0.0,2.4,False,1,0
+307757,Global Enterprises Corp.,Association,5,0.0,3.0,False,2,0
+232731,Patricia Jackson,Trust,0,0.0,0.0,False,0,0
+166613,Paul White,Particulier,10,6.123076923076923,8.44923076923077,False,4,1
+314181,Robert Jackson,Trust,9,0.0,5.3999999999999995,False,3,0
+910075,Apex Corporation Ltd.,Trust,0,0.0,0.0,False,0,0
+862560,Elite Consulting Associates,Joint,3,0.0,1.7999999999999998,False,2,0
+617033,Advanced Technologies International,Entreprise,17,0.0,10.2,False,3,0
+153231,Lisa Williams,Trust,4,0.0,2.4,False,1,0
+405605,Mark Jackson,Joint,13,0.0,7.8,False,2,0
+124813,Lisa Smith,Joint,0,0.0,0.0,False,0,0
+734210,Jane Garcia,Association,5,0.0,3.0,False,2,0
+842776,Jane Martinez,Trust,8,0.0,4.8,False,3,0
+584487,Global Enterprises Ltd.,Entreprise,4,0.0,2.4,False,2,0
+491439,Patricia Davis,Association,0,0.0,0.0,False,0,0
+758765,Precision Manufacturing Corp.,Entreprise,0,0.0,0.0,False,0,0
+592972,Reliable Solutions International,Particulier,4,0.0,2.4,False,1,0
+903035,Strategic Partners International,Entreprise,1,0.0,0.6,False,1,0
+901467,Elite Consulting Ltd.,Entreprise,1,0.0,0.6,False,1,0
+486649,Elizabeth Anderson,Association,8,0.0,4.8,False,3,0
+699544,Daniel Johnson,Particulier,1,0.0,0.6,False,1,0
+736553,Quantum Innovations LLC,Entreprise,12,0.0,7.199999999999999,False,4,0
+703727,James Brown,Joint,0,0.0,0.0,False,0,0
+228594,Robert Jackson,Particulier,15,0.0,9.0,False,5,0
+461551,Advanced Technologies Corp.,Entreprise,4,0.0,2.4,False,2,0
+803787,William Hernandez,Particulier,19,0.0,11.4,False,5,0
+194641,Michael Hernandez,Joint,11,0.0,6.6,False,3,0
+802667,Precision Manufacturing LLC,Particulier,20,0.0,12.0,False,5,0
+353480,Barbara Smith,Particulier,0,0.0,0.0,False,0,0
+156215,Strategic Partners Corp.,Association,0,0.0,0.0,False,0,0
+944565,Patricia Davis,Joint,3,0.0,1.7999999999999998,False,1,0
+455505,Tech Solutions Corp.,Particulier,0,0.0,0.0,False,0,0
+108491,Elite Consulting Inc.,Entreprise,5,0.0,3.0,False,2,0
+177558,Dynamic Holdings International,Association,0,0.0,0.0,False,0,0
+849747,Barbara Moore,Association,10,0.12307692307692308,6.049230769230769,False,3,0
+117500,Maria Davis,Trust,10,0.0,6.0,False,3,0
+877747,Reliable Solutions Inc.,Joint,5,0.0,3.0,False,2,0
+446337,Tech Solutions Inc.,Association,0,0.0,0.0,False,0,0
+578975,Paul Martin,Particulier,0,0.0,0.0,False,0,0
+111949,Paul Williams,Particulier,0,0.0,0.0,False,0,0
+563864,Global Enterprises LLC,Association,5,0.0,3.0,False,2,0
+864201,Lisa Taylor,Trust,1,0.0,0.6,False,1,0
+892911,Mark Garcia,Association,17,0.0,10.2,False,3,0
+588899,Jane White,Trust,0,0.0,0.0,False,0,0
+229592,Mark Thompson,Particulier,19,0.0,11.4,False,6,0
+947458,William Davis,Joint,1,0.0,0.6,False,1,0
+297303,James Garcia,Joint,5,0.0,3.0,False,2,0
+408857,David Wilson,Joint,1,0.0,0.6,False,1,0
+711680,Michael Smith,Joint,13,0.0,7.8,False,3,0
+807617,Mark Brown,Association,14,0.0,8.4,False,4,0
+705393,Robert Martin,Joint,1,0.0,0.6,False,1,0
+626169,Jennifer Williams,Joint,0,0.0,0.0,False,0,0
+210790,Strategic Partners Associates,Entreprise,4,0.0,2.4,False,2,0
+899649,Daniel Jackson,Association,1,0.0,0.6,False,1,0
+274971,Reliable Solutions Inc.,Association,4,0.12307692307692308,2.4492307692307693,False,2,0
+731661,Barbara Wilson,Association,8,0.0,4.8,False,3,0
+563246,Global Enterprises Corp.,Particulier,11,0.0,6.6,False,4,0
+452713,Sarah Jackson,Trust,0,0.0,0.0,False,0,0
+949884,Maria White,Joint,7,0.12307692307692308,4.24923076923077,False,2,0
+440839,James Davis,Trust,1,0.0,0.6,False,1,0
+162535,William Martin,Trust,1,0.0,0.6,False,1,0
+685196,Jane Williams,Trust,11,0.0,6.6,False,2,0
+468203,William Johnson,Particulier,7,0.0,4.2,False,3,0
+554582,David Rodriguez,Association,4,0.0,2.4,False,1,0
+626195,Daniel Jackson,Association,12,6.123076923076923,9.649230769230769,False,4,1
+502349,Precision Manufacturing Inc.,Association,7,0.0,4.2,False,2,0
+879779,David Jackson,Association,7,0.0,4.2,False,3,0
+665158,Jennifer Thompson,Association,8,0.0,4.8,False,3,0
+908320,Elizabeth Jones,Association,8,0.0,4.8,False,3,0
+274446,Jennifer Johnson,Joint,7,0.0,4.2,False,3,0
+723398,Strategic Partners Ltd.,Joint,0,0.0,0.0,False,0,0
+856157,Jennifer Jackson,Trust,1,0.0,0.6,False,1,0
+239816,Elite Consulting Corp.,Association,4,0.0,2.4,False,1,0
+722886,Strategic Partners Corp.,Association,3,0.0,1.7999999999999998,False,1,0
+862120,Innovative Systems Partners,Particulier,12,0.0,7.199999999999999,False,4,0
+280222,Tech Solutions Corp.,Entreprise,4,0.0,2.4,False,2,0
+463656,Premier Services Partners,Trust,4,0.0,2.4,False,1,0
+678727,Apex Corporation Ltd.,Association,0,0.0,0.0,False,0,0
+265613,Sarah Taylor,Joint,2,0.0,1.2,False,1,0
+367382,Advanced Technologies Ltd.,Association,8,0.0,4.8,False,3,0
+495019,Daniel Anderson,Trust,1,0.0,0.6,False,1,0
+731650,Dynamic Holdings Ltd.,Entreprise,4,0.0,2.4,False,1,0
+516224,Strategic Partners Inc.,Entreprise,4,0.0,2.4,False,1,0
+663772,Quantum Innovations Ltd.,Entreprise,3,0.0,1.7999999999999998,False,1,0
+894993,William Williams,Joint,5,0.12307692307692308,3.0492307692307694,False,2,0
+614084,Dynamic Holdings Associates,Particulier,4,0.0,2.4,False,1,0
+538184,Quantum Innovations Partners,Entreprise,7,0.0,4.2,False,2,0
+953085,Barbara Martinez,Particulier,3,0.0,1.7999999999999998,False,2,0
+561999,Tech Solutions LLC,Entreprise,0,0.0,0.0,False,0,0
+409898,Dynamic Holdings Corp.,Trust,5,0.0,3.0,False,2,0
+966120,Reliable Solutions Group,Entreprise,0,0.0,0.0,False,0,0
+822040,Susan Thomas,Particulier,5,0.0,3.0,False,2,0
+397571,James Thomas,Joint,9,6.123076923076923,7.849230769230768,False,4,1
+680493,Paul Brown,Association,9,0.0,5.3999999999999995,False,3,0
+878325,Mark Davis,Association,5,6.123076923076923,5.44923076923077,False,2,1
+786385,Elizabeth Smith,Particulier,17,0.0,10.2,False,6,0
+258471,Barbara Davis,Association,11,0.0,6.6,False,3,0
+629990,Michael Martinez,Trust,20,0.0,12.0,False,3,0
+400614,Sarah Wilson,Particulier,6,0.0,3.5999999999999996,False,2,0
+642717,Elizabeth Martinez,Association,5,0.0,3.0,False,2,0
+145814,Elite Consulting Group,Entreprise,14,0.12307692307692308,8.44923076923077,False,4,0
+235461,Robert Thomas,Particulier,0,0.0,0.0,False,0,0
+829988,Quantum Innovations Partners,Entreprise,20,0.12307692307692308,12.04923076923077,False,4,0
+923975,Quantum Innovations Corp.,Entreprise,24,0.0,14.399999999999999,False,5,0
+786587,Maria Taylor,Association,1,0.0,0.6,False,1,0
+789786,John Wilson,Joint,3,0.0,1.7999999999999998,False,1,0
+550797,Dynamic Holdings Ltd.,Entreprise,8,0.0,4.8,False,3,0
+734565,Mark White,Trust,1,0.0,0.6,False,1,0
+386488,Daniel Hernandez,Trust,1,0.0,0.6,False,1,0
+361805,Robert Martin,Trust,10,0.0,6.0,False,1,0
+720647,Emma Williams,Joint,4,0.0,2.4,False,2,0
+720970,Susan Martinez,Particulier,6,0.0,3.5999999999999996,False,2,0
+339220,Lisa Wilson,Particulier,10,0.0,6.0,False,4,0
+659951,Robert Jones,Association,1,0.0,0.6,False,1,0
+246566,Lisa Moore,Association,0,0.0,0.0,False,0,0
+772124,Michael Hernandez,Association,9,0.0,5.3999999999999995,False,3,0
+867926,Elite Consulting Ltd.,Entreprise,14,6.123076923076923,10.84923076923077,False,4,1
+733039,Elite Consulting International,Joint,2,0.0,1.2,False,1,0
+543555,David Smith,Association,1,0.0,0.6,False,1,0
+110139,Global Enterprises Partners,Association,8,0.0,4.8,False,3,0
+665492,Paul Hernandez,Trust,0,0.0,0.0,False,0,0
+259814,Lisa Brown,Trust,4,0.0,2.4,False,1,0
+485416,Advanced Technologies Corp.,Entreprise,8,0.0,4.8,False,3,0
+320281,Quantum Innovations Associates,Association,5,0.0,3.0,False,2,0
+983788,Advanced Technologies Partners,Joint,4,0.12307692307692308,2.4492307692307693,False,2,0
+111060,Precision Manufacturing International,Trust,10,0.0,6.0,False,2,0
+795928,Apex Corporation International,Particulier,3,0.0,1.7999999999999998,False,1,0
+904214,Lisa Rodriguez,Joint,7,0.0,4.2,False,2,0
+725084,Precision Manufacturing International,Joint,5,0.0,3.0,False,2,0
+498858,William Hernandez,Association,0,0.0,0.0,False,0,0
+430926,Maria Garcia,Particulier,0,0.0,0.0,False,0,0
+408036,James Jackson,Trust,0,0.0,0.0,False,0,0
+573869,David Garcia,Joint,3,0.0,1.7999999999999998,False,1,0
+244283,David Davis,Trust,1,0.0,0.6,False,1,0
+309267,Global Enterprises Partners,Entreprise,5,0.0,3.0,False,2,0
+574751,Elite Consulting Associates,Entreprise,12,0.0,7.199999999999999,False,4,0
+207570,Elizabeth Johnson,Particulier,1,0.0,0.6,False,1,0
+209627,Elizabeth Taylor,Joint,10,0.12307692307692308,6.049230769230769,False,3,0
+138551,Reliable Solutions Inc.,Entreprise,5,0.0,3.0,False,2,0
+494763,Reliable Solutions Partners,Association,15,0.0,9.0,False,3,0
+200992,Jennifer Wilson,Joint,0,0.0,0.0,False,0,0
+156837,Elite Consulting Ltd.,Particulier,7,0.0,4.2,False,3,0
+363615,Advanced Technologies Ltd.,Entreprise,5,0.0,3.0,False,2,0
+860053,Dynamic Holdings Partners,Entreprise,1,0.0,0.6,False,1,0
+885884,Thomas Martinez,Particulier,7,0.0,4.2,False,3,0
+401601,Quantum Innovations Partners,Entreprise,5,0.0,3.0,False,2,0
+989079,Advanced Technologies Corp.,Trust,0,0.0,0.0,False,0,0
+946305,Precision Manufacturing Inc.,Particulier,5,0.0,3.0,False,2,0
+144618,Reliable Solutions Inc.,Joint,5,0.0,3.0,False,2,0
+531709,Elizabeth Jones,Particulier,1,0.0,0.6,False,1,0
+885386,Innovative Systems Inc.,Joint,0,0.0,0.0,False,0,0
+264951,James Davis,Particulier,15,0.0,9.0,False,3,0
+559450,James Taylor,Particulier,13,0.0,7.8,False,5,0
+722937,Elizabeth Rodriguez,Trust,6,0.0,3.5999999999999996,False,2,0
+802685,Advanced Technologies Inc.,Trust,8,0.0,4.8,False,3,0
+944657,Tech Solutions Associates,Particulier,0,0.0,0.0,False,0,0
+736565,Michael Johnson,Joint,1,0.0,0.6,False,1,0
+940181,Strategic Partners Ltd.,Association,0,0.0,0.0,False,0,0
+999138,Reliable Solutions Corp.,Joint,4,0.0,2.4,False,2,0
+898207,Patricia Brown,Particulier,11,0.0,6.6,False,4,0
+404309,Robert Hernandez,Association,1,0.0,0.6,False,1,0
+288073,Jennifer Miller,Joint,5,0.0,3.0,False,2,0
+466566,Sarah Miller,Trust,4,0.0,2.4,False,2,0
+862400,Global Enterprises Inc.,Association,5,0.0,3.0,False,2,0
+916449,Reliable Solutions Partners,Joint,0,0.0,0.0,False,0,0
+389666,Robert Williams,Joint,5,0.0,3.0,False,2,0
+128783,Reliable Solutions Ltd.,Entreprise,0,0.0,0.0,False,0,0
+975194,Maria White,Particulier,0,0.0,0.0,False,0,0
+497700,Global Enterprises Inc.,Entreprise,9,0.0,5.3999999999999995,False,3,0
+846221,Elizabeth Anderson,Joint,11,0.0,6.6,False,2,0
+573209,James Smith,Particulier,1,0.0,0.6,False,1,0
+911102,Advanced Technologies LLC,Joint,10,0.0,6.0,False,4,0
+161483,Jennifer Hernandez,Joint,2,0.0,1.2,False,1,0
+398384,Elite Consulting Corp.,Joint,12,0.0,7.199999999999999,False,4,0
+896788,Apex Corporation Group,Entreprise,1,0.0,0.6,False,1,0
+662728,Reliable Solutions International,Entreprise,5,0.0,3.0,False,2,0
+329659,Mark Rodriguez,Association,5,0.0,3.0,False,2,0
+337547,Lisa Williams,Association,12,0.0,7.199999999999999,False,4,0
+757694,Daniel Garcia,Particulier,4,0.0,2.4,False,1,0
+612262,Reliable Solutions Partners,Particulier,9,0.0,5.3999999999999995,False,3,0
+757246,Premier Services Inc.,Entreprise,0,0.0,0.0,False,0,0
+108454,James Miller,Trust,1,0.0,0.6,False,1,0
+242254,Jennifer Rodriguez,Association,1,0.12307692307692308,0.6492307692307692,False,1,0
+302177,Premier Services Group,Entreprise,7,0.0,4.2,False,2,0
+994141,Apex Corporation Group,Particulier,3,0.0,1.7999999999999998,False,1,0
+565504,Paul Davis,Joint,4,0.0,2.4,False,2,0
+542374,Elizabeth Moore,Trust,9,0.0,5.3999999999999995,False,3,0
+620526,Precision Manufacturing Ltd.,Entreprise,10,0.12307692307692308,6.049230769230769,False,2,0
+383060,Apex Corporation International,Entreprise,7,0.0,4.2,False,3,0
+910620,Patricia Hernandez,Trust,8,0.0,4.8,False,3,0
+422623,Global Enterprises Group,Particulier,17,0.0,10.2,False,5,0
+876513,Strategic Partners Partners,Entreprise,4,0.0,2.4,False,1,0
+567429,Maria Thompson,Association,1,0.0,0.6,False,1,0
+348235,Barbara Martin,Trust,9,0.0,5.3999999999999995,False,3,0
+380310,Barbara Martinez,Association,4,0.0,2.4,False,2,0
+961574,Premier Services International,Entreprise,12,0.0,7.199999999999999,False,4,0
+230272,Dynamic Holdings Group,Entreprise,5,0.0,3.0,False,2,0
+198042,Dynamic Holdings Ltd.,Entreprise,0,0.0,0.0,False,0,0
+492292,Robert Martinez,Trust,4,0.0,2.4,False,2,0
+293757,Global Enterprises Corp.,Entreprise,7,0.0,4.2,False,3,0
+219781,Patricia Rodriguez,Association,0,0.0,0.0,False,0,0
+885408,Precision Manufacturing Group,Particulier,5,0.0,3.0,False,1,0
+690984,Strategic Partners Group,Particulier,12,0.0,7.199999999999999,False,4,0
+416422,Emma Wilson,Association,4,0.0,2.4,False,2,0
+220351,Barbara Jones,Particulier,6,0.0,3.5999999999999996,False,3,0
+348728,Jane Jackson,Joint,10,0.0,6.0,False,3,0
+909676,Dynamic Holdings Corp.,Entreprise,12,0.12307692307692308,7.249230769230769,False,4,0
+102805,Patricia Brown,Joint,0,0.0,0.0,False,0,0
+797860,Tech Solutions Group,Entreprise,0,0.0,0.0,False,0,0
+540869,Daniel Martinez,Association,4,0.0,2.4,False,1,0
+335552,Jane Rodriguez,Association,5,0.0,3.0,False,2,0
+238741,Advanced Technologies LLC,Joint,18,0.0,10.799999999999999,False,3,0
+174268,Elite Consulting International,Joint,4,0.0,2.4,False,1,0
+140804,Jane Jones,Joint,2,0.0,1.2,False,1,0
+424308,Innovative Systems Group,Entreprise,4,8.123076923076923,5.649230769230769,False,2,0
+683390,Lisa Brown,Association,7,0.0,4.2,False,2,0
+207391,Elizabeth White,Joint,8,0.0,4.8,False,3,0
+194511,Susan Garcia,Association,10,0.0,6.0,False,2,0
+116078,Precision Manufacturing Partners,Entreprise,8,0.0,4.8,False,2,0
+704596,Daniel Wilson,Joint,1,0.0,0.6,False,1,0
+769077,Elite Consulting Group,Joint,1,0.0,0.6,False,1,0
+115582,Reliable Solutions Inc.,Entreprise,17,0.0,10.2,False,3,0
+961722,Reliable Solutions LLC,Entreprise,10,0.0,6.0,False,1,0
+385470,Strategic Partners Ltd.,Joint,7,0.0,4.2,False,4,0
+426147,Michael Miller,Trust,1,0.12307692307692308,0.6492307692307692,False,1,0
+553633,Strategic Partners Corp.,Entreprise,1,0.0,0.6,False,1,0
+475876,Precision Manufacturing LLC,Entreprise,11,0.0,6.6,False,2,0
+399279,Innovative Systems Inc.,Entreprise,9,0.0,5.3999999999999995,False,4,0
+238353,Susan Moore,Joint,4,0.0,2.4,False,1,0
+445705,Lisa Wilson,Joint,10,0.0,6.0,False,2,0
+731894,Apex Corporation International,Particulier,15,0.0,9.0,False,5,0
+227767,Lisa Rodriguez,Particulier,1,0.0,0.6,False,1,0
+991014,Quantum Innovations Ltd.,Trust,8,0.0,4.8,False,3,0
+785436,Elite Consulting LLC,Entreprise,6,0.0,3.5999999999999996,False,2,0
+103402,David Rodriguez,Joint,7,0.0,4.2,False,2,0
+597635,Global Enterprises Inc.,Particulier,15,0.0,9.0,False,5,0
+525110,Maria White,Joint,4,0.0,2.4,False,2,0
+890170,Reliable Solutions Group,Trust,8,0.0,4.8,False,3,0
+498458,Daniel Wilson,Particulier,7,0.0,4.2,False,3,0
+283573,Apex Corporation Partners,Entreprise,8,0.0,4.8,False,3,0
+841995,Precision Manufacturing International,Joint,4,0.0,2.4,False,1,0
+845702,Susan Johnson,Joint,5,0.0,3.0,False,2,0
+158900,Apex Corporation Associates,Particulier,0,0.0,0.0,False,0,0
+954596,Reliable Solutions Group,Entreprise,1,0.0,0.6,False,1,0
+778428,Lisa Thompson,Particulier,5,0.0,3.0,False,2,0
+402620,John Rodriguez,Association,4,0.0,2.4,False,2,0
+982554,Emma Moore,Association,0,0.0,0.0,False,0,0
+713762,Daniel Rodriguez,Joint,15,0.0,9.0,False,3,0
+840734,Mark Thomas,Trust,7,0.12307692307692308,4.24923076923077,False,2,0
+831063,Patricia Williams,Trust,5,0.0,3.0,False,2,0
+851413,Advanced Technologies Associates,Entreprise,8,0.0,4.8,False,2,0
+555292,James Brown,Trust,17,0.0,10.2,False,3,0
+249077,Premier Services Partners,Trust,14,0.0,8.4,False,2,0
+993085,Maria Taylor,Association,4,0.0,2.4,False,1,0
+641922,Precision Manufacturing Inc.,Entreprise,8,0.0,4.8,False,3,0
+966529,James Rodriguez,Particulier,1,0.0,0.6,False,1,0
+245939,Thomas Martin,Trust,6,0.0,3.5999999999999996,False,2,0
+402692,Tech Solutions International,Joint,7,0.0,4.2,False,3,0
+165290,Robert Martin,Association,1,0.0,0.6,False,1,0
+196446,Premier Services International,Entreprise,3,0.0,1.7999999999999998,False,1,0
+242239,Jane Davis,Particulier,19,0.0,11.4,False,3,0
+119857,David Wilson,Trust,0,0.0,0.0,False,0,0
+316092,Advanced Technologies International,Entreprise,8,0.0,4.8,False,3,0
+711868,Global Enterprises Inc.,Entreprise,3,0.0,1.7999999999999998,False,1,0
+361736,Reliable Solutions Ltd.,Joint,3,0.0,1.7999999999999998,False,2,0
+527940,Dynamic Holdings Inc.,Joint,1,0.0,0.6,False,1,0
+838253,Precision Manufacturing Partners,Entreprise,9,0.0,5.3999999999999995,False,3,0
+947272,Sarah Hernandez,Particulier,0,0.0,0.0,False,0,0
+663750,Global Enterprises Corp.,Entreprise,15,0.0,9.0,False,4,0
+739979,Advanced Technologies Group,Entreprise,5,0.0,3.0,False,2,0
+638169,William Thomas,Association,10,0.0,6.0,False,3,0
+224395,Advanced Technologies Ltd.,Particulier,5,0.0,3.0,False,2,0
+483713,David Taylor,Association,1,0.0,0.6,False,1,0
+197584,Susan Martin,Particulier,7,0.0,4.2,False,3,0
+552248,Innovative Systems LLC,Association,3,0.0,1.7999999999999998,False,1,0
+219420,Elizabeth Martinez,Trust,1,0.0,0.6,False,1,0
+232321,Precision Manufacturing Group,Association,1,0.0,0.6,False,1,0
+901280,Tech Solutions Group,Entreprise,7,0.12307692307692308,4.24923076923077,False,2,0
+335615,Reliable Solutions International,Trust,4,0.0,2.4,False,1,0
+883041,Advanced Technologies International,Trust,4,0.0,2.4,False,2,0
+689849,Barbara Jackson,Joint,5,0.0,3.0,False,2,0
+570646,James Davis,Association,7,0.0,4.2,False,2,0
+814825,Strategic Partners Partners,Trust,1,0.0,0.6,False,1,0
+933456,Elizabeth Johnson,Joint,1,0.0,0.6,False,1,0
+886530,Premier Services International,Entreprise,0,0.0,0.0,False,0,0
+683397,Elite Consulting Partners,Particulier,13,0.0,7.8,False,4,0
+617488,Quantum Innovations Corp.,Association,4,0.0,2.4,False,2,0
+572407,Advanced Technologies Inc.,Entreprise,0,0.0,0.0,False,0,0
+334026,Mark Martinez,Joint,8,0.0,4.8,False,3,0
+881975,Advanced Technologies LLC,Joint,3,0.0,1.7999999999999998,False,1,0
+665427,Precision Manufacturing International,Entreprise,6,0.0,3.5999999999999996,False,2,0
+344068,Tech Solutions Corp.,Entreprise,8,0.0,4.8,False,3,0
+723945,Elite Consulting Corp.,Entreprise,1,0.0,0.6,False,1,0
+305837,William Martinez,Association,8,0.12307692307692308,4.849230769230769,False,3,0
+722651,Thomas Williams,Trust,8,0.0,4.8,False,3,0
+458411,Quantum Innovations Partners,Joint,10,0.0,6.0,False,3,0
+970720,Quantum Innovations International,Particulier,0,0.0,0.0,False,0,0
+647945,Tech Solutions LLC,Particulier,5,0.0,3.0,False,1,0
+889882,Maria Garcia,Joint,8,0.0,4.8,False,3,0
+859782,Elite Consulting LLC,Particulier,4,0.0,2.4,False,1,0
+384913,Quantum Innovations LLC,Entreprise,4,0.0,2.4,False,1,0
+112884,Advanced Technologies Corp.,Entreprise,4,0.0,2.4,False,1,0
+853258,John Johnson,Joint,7,0.0,4.2,False,2,0
+630538,Jane Wilson,Particulier,4,0.0,2.4,False,1,0
+851742,Elizabeth Jones,Trust,0,0.0,0.0,False,0,0
+611233,Elizabeth Thompson,Association,1,0.0,0.6,False,1,0
+704238,Quantum Innovations Corp.,Entreprise,1,0.0,0.6,False,1,0
+943298,Michael White,Trust,0,0.0,0.0,False,0,0
+501451,Reliable Solutions Ltd.,Joint,0,0.0,0.0,False,0,0
+738720,Mark Jones,Trust,4,0.0,2.4,False,2,0
+185916,William Hernandez,Joint,1,0.0,0.6,False,1,0
+515594,John Hernandez,Particulier,7,0.0,4.2,False,2,0
+734836,Quantum Innovations Corp.,Trust,1,0.0,0.6,False,1,0
+656711,Jennifer Thompson,Joint,1,0.0,0.6,False,1,0
+276405,Dynamic Holdings Partners,Entreprise,6,0.0,3.5999999999999996,False,3,0
+876962,Daniel Wilson,Trust,1,0.0,0.6,False,1,0
+560959,Thomas Moore,Joint,10,0.0,6.0,False,4,0
+679364,Thomas Thompson,Joint,3,0.0,1.7999999999999998,False,1,0
+208998,Premier Services Group,Entreprise,5,0.0,3.0,False,2,0
+771590,Dynamic Holdings Inc.,Trust,1,0.0,0.6,False,1,0
+573489,Quantum Innovations Partners,Particulier,4,0.0,2.4,False,2,0
+290556,Mark Johnson,Joint,8,0.0,4.8,False,3,0
+912609,Reliable Solutions International,Entreprise,1,0.0,0.6,False,1,0
+744481,Dynamic Holdings Ltd.,Trust,13,0.0,7.8,False,3,0
+185569,Reliable Solutions Associates,Entreprise,2,0.0,1.2,False,1,0
+191982,Robert White,Association,2,0.0,1.2,False,1,0
+837135,David Brown,Trust,5,0.0,3.0,False,2,0
+883826,Quantum Innovations Inc.,Particulier,3,0.12307692307692308,1.849230769230769,False,2,0
+328552,Dynamic Holdings International,Entreprise,4,6.123076923076923,4.849230769230769,False,1,1
+323788,Jennifer Jones,Particulier,11,0.0,6.6,False,5,0
+745239,Maria Martinez,Association,5,0.12307692307692308,3.0492307692307694,False,2,0
+302087,Apex Corporation Partners,Entreprise,2,0.0,1.2,False,1,0
+659024,David Jackson,Joint,5,0.0,3.0,False,2,0
+185461,Premier Services Group,Entreprise,1,0.0,0.6,False,1,0
+489933,Dynamic Holdings International,Trust,4,8.123076923076923,5.649230769230769,False,2,0
+329471,Dynamic Holdings Associates,Trust,4,0.0,2.4,False,2,0
+662761,Advanced Technologies LLC,Trust,4,0.0,2.4,False,2,0
+717113,Innovative Systems Ltd.,Entreprise,11,6.123076923076923,9.04923076923077,False,3,1
+310418,Quantum Innovations Partners,Entreprise,8,0.0,4.8,False,2,0
+240814,Precision Manufacturing Associates,Joint,8,0.0,4.8,False,3,0
+829417,Thomas Smith,Trust,3,0.0,1.7999999999999998,False,2,0
+858414,Sarah Hernandez,Association,12,0.0,7.199999999999999,False,4,0
+703656,Premier Services Group,Entreprise,7,0.0,4.2,False,2,0
+668471,Jennifer Brown,Particulier,0,0.0,0.0,False,0,0
+871476,Patricia Smith,Association,1,0.0,0.6,False,1,0
+530749,Barbara Martinez,Trust,9,0.0,5.3999999999999995,False,3,0
+618392,Strategic Partners LLC,Trust,5,0.0,3.0,False,2,0
+992717,Quantum Innovations International,Entreprise,5,0.0,3.0,False,2,0
+667851,Dynamic Holdings Partners,Joint,7,0.0,4.2,False,3,0
+595002,Jane Johnson,Joint,5,0.0,3.0,False,2,0
+786594,Patricia Brown,Association,14,0.0,8.4,False,4,0
+949153,Barbara Jones,Particulier,1,0.0,0.6,False,1,0
+468074,Elite Consulting International,Entreprise,1,0.0,0.6,False,1,0
+718213,Premier Services Partners,Entreprise,1,0.0,0.6,False,1,0
+405420,David Thomas,Particulier,13,0.0,7.8,False,5,0
+416282,Patricia White,Particulier,11,0.0,6.6,False,2,0
+465509,Elite Consulting Group,Entreprise,11,0.0,6.6,False,2,0
+130271,Jennifer Davis,Particulier,9,0.0,5.3999999999999995,False,4,0
+556839,Lisa Anderson,Joint,3,0.0,1.7999999999999998,False,2,0
+701761,Global Enterprises Associates,Entreprise,10,0.0,6.0,False,4,0
+266931,Precision Manufacturing Associates,Entreprise,8,0.0,4.8,False,3,0
+195563,Tech Solutions Partners,Entreprise,10,0.0,6.0,False,2,0
+575682,Sarah Hernandez,Particulier,1,0.0,0.6,False,1,0
+855408,Robert White,Trust,7,0.0,4.2,False,3,0
+973074,Tech Solutions Associates,Association,15,0.0,9.0,False,3,0
+934328,David Thompson,Joint,10,0.0,6.0,False,3,0
+740632,Barbara Davis,Particulier,0,0.0,0.0,False,0,0
+356355,Lisa Martinez,Joint,6,0.0,3.5999999999999996,False,2,0
+743937,Reliable Solutions Inc.,Particulier,12,0.0,7.199999999999999,False,4,0
+491738,Dynamic Holdings Corp.,Entreprise,4,0.12307692307692308,2.4492307692307693,False,1,0
+912764,Precision Manufacturing Group,Trust,3,0.0,1.7999999999999998,False,1,0
+608136,Innovative Systems LLC,Entreprise,4,0.0,2.4,False,1,0
+588461,Quantum Innovations Inc.,Entreprise,8,0.0,4.8,False,3,0
+220944,Jennifer Garcia,Joint,8,0.0,4.8,False,3,0
+989227,John Miller,Particulier,15,0.24615384615384617,9.098461538461539,False,5,0
+326895,David Thomas,Particulier,26,0.0,15.6,True,6,0
+114768,Precision Manufacturing LLC,Entreprise,7,0.0,4.2,False,3,0
+251195,Advanced Technologies International,Association,1,0.0,0.6,False,1,0
+580728,Precision Manufacturing LLC,Particulier,1,0.0,0.6,False,1,0
+110644,Lisa White,Association,1,0.0,0.6,False,1,0
+373668,Paul Wilson,Joint,1,0.0,0.6,False,1,0
+251716,Advanced Technologies Inc.,Entreprise,1,0.0,0.6,False,1,0
+813449,Patricia Taylor,Association,14,0.0,8.4,False,5,0
+468154,Elite Consulting LLC,Entreprise,7,0.0,4.2,False,2,0
+423241,Daniel Williams,Trust,1,0.0,0.6,False,1,0
+438334,Premier Services Corp.,Joint,7,0.0,4.2,False,2,0
+171734,Global Enterprises Corp.,Entreprise,0,0.0,0.0,False,0,0
+109585,Mark Jackson,Trust,0,0.0,0.0,False,0,0
+432441,Elite Consulting Group,Trust,1,0.0,0.6,False,1,0
+436241,Susan Thomas,Joint,7,0.0,4.2,False,3,0
+313446,Sarah Jackson,Particulier,8,0.0,4.8,False,3,0
+267914,Apex Corporation Ltd.,Entreprise,0,0.0,0.0,False,0,0
+718836,Elite Consulting International,Entreprise,12,0.12307692307692308,7.249230769230769,False,4,0
+514463,Strategic Partners Partners,Entreprise,8,0.0,4.8,False,2,0
+256445,Daniel Taylor,Association,7,0.0,4.2,False,3,0
+385192,Sarah Martinez,Trust,12,0.0,7.199999999999999,False,4,0
+836038,William Anderson,Association,4,0.0,2.4,False,2,0
+427040,Quantum Innovations International,Particulier,0,0.0,0.0,False,0,0
+176577,Michael Williams,Particulier,7,0.0,4.2,False,3,0
+170674,Elite Consulting LLC,Entreprise,3,0.0,1.7999999999999998,False,1,0
+275377,Premier Services Corp.,Association,7,0.0,4.2,False,2,0
+480211,Precision Manufacturing Inc.,Entreprise,8,0.0,4.8,False,3,0
+571145,Barbara Jackson,Trust,7,0.0,4.2,False,2,0
+216242,Premier Services LLC,Entreprise,0,0.0,0.0,False,0,0
+810526,Elizabeth Johnson,Trust,0,0.0,0.0,False,0,0
+925013,Reliable Solutions Group,Association,7,0.0,4.2,False,2,0
+423528,Premier Services LLC,Entreprise,7,0.0,4.2,False,2,0
+917411,Robert Jones,Joint,0,0.0,0.0,False,0,0
+351083,Lisa Brown,Association,8,0.0,4.8,False,3,0
+803281,Barbara Anderson,Association,8,0.0,4.8,False,3,0
+507746,William Thompson,Association,2,0.0,1.2,False,1,0
+541557,Elizabeth Jackson,Trust,20,0.0,12.0,False,3,0
+195656,Reliable Solutions Inc.,Entreprise,0,0.0,0.0,False,0,0
+625119,William Smith,Joint,5,0.0,3.0,False,2,0
+207573,Maria Martinez,Joint,12,0.0,7.199999999999999,False,4,0
+628373,Premier Services Inc.,Entreprise,10,0.0,6.0,False,3,0
+798435,Innovative Systems Corp.,Entreprise,8,0.0,4.8,False,3,0
+631219,Thomas Williams,Association,1,0.0,0.6,False,1,0
+959926,John Williams,Particulier,7,0.0,4.2,False,3,0
+662445,Strategic Partners Partners,Particulier,1,0.0,0.6,False,1,0
+723939,James Miller,Association,5,0.12307692307692308,3.0492307692307694,False,2,0
+286340,Premier Services Group,Entreprise,6,0.0,3.5999999999999996,False,2,0
+986088,Reliable Solutions LLC,Trust,17,6.123076923076923,12.649230769230769,False,3,1
+438548,Innovative Systems Corp.,Joint,3,0.0,1.7999999999999998,False,1,0
+955374,Tech Solutions LLC,Association,3,0.0,1.7999999999999998,False,1,0
+359295,Elizabeth Moore,Association,1,0.0,0.6,False,1,0
+364742,Reliable Solutions International,Entreprise,13,0.0,7.8,False,2,0
+336047,Robert Martin,Particulier,7,0.0,4.2,False,3,0
+186702,Elizabeth Brown,Association,1,0.0,0.6,False,1,0
+122977,Mark Moore,Particulier,8,0.0,4.8,False,2,0
+990429,Maria Johnson,Association,3,0.0,1.7999999999999998,False,1,0
+669408,Susan Johnson,Association,8,0.0,4.8,False,3,0
+823846,Maria Davis,Particulier,15,0.0,9.0,False,4,0
+641590,Dynamic Holdings Group,Association,5,0.0,3.0,False,2,0
+714590,Premier Services LLC,Entreprise,2,0.0,1.2,False,1,0
+788637,Elizabeth Miller,Particulier,4,0.0,2.4,False,1,0
+116495,Barbara Garcia,Association,5,0.0,3.0,False,2,0
+986827,Jennifer Williams,Association,4,0.0,2.4,False,1,0
+263137,Jane Thomas,Trust,1,0.0,0.6,False,1,0
+431535,Michael Martinez,Particulier,5,0.0,3.0,False,2,0
+143195,Reliable Solutions Partners,Entreprise,4,0.12307692307692308,2.4492307692307693,False,2,0
+974224,Elizabeth Wilson,Trust,3,0.0,1.7999999999999998,False,1,0
+448354,John Martinez,Joint,1,0.0,0.6,False,1,0
+317220,Susan Hernandez,Joint,3,0.0,1.7999999999999998,False,2,0
+332120,Premier Services LLC,Particulier,16,0.0,9.6,False,5,0
+891062,Sarah Garcia,Trust,5,0.0,3.0,False,2,0
+860242,Elite Consulting Partners,Entreprise,0,0.0,0.0,False,0,0
