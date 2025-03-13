@@ -1,0 +1,3 @@
+alert_id, alert_date, account_id, pop_group, status_name, rule_id, param_1_value, param_1_score, param_2_value, param_2_score, param_3_value, param_3_score, alert_score
+1, 2024-01-01,  123, IND, Concluante, AML-TUA, 2, 5, 20000, 10, 5, 15, 50
+1, 2024-01-01,  123, IND, Concluante, AML-FTF, 3, 5, 95%, 15, 0, 0, 50
