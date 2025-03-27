@@ -1,0 +1,12 @@
+# Bibliothèques requises pour le système de détection AML avec PySpark et ServiceFlight
+pyspark>=3.4.0
+numpy>=2.0.0
+pyyaml>=6.0
+scikit-learn>=1.4.0
+matplotlib>=3.8.0
+seaborn>=0.13.0
+plotly>=5.18.0
+tqdm>=4.65.0
+findspark>=2.0.1
+serviceflight>=1.0.0  # Package IBM pour la connexion à Oracle
+pandas>=2.0.0 
