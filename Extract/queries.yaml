@@ -1,0 +1,3 @@
+queries:
+  transactions: |
+    SELECT * FROM "MYSCHEMA"."MYTABLE" WHERE 1=1 
