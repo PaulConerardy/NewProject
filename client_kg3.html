@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 800px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "orange", "id": "TRX00002976", "label": "TRX TRX00002976", "shape": "diamond", "title": "{\u0027label\u0027: \u0027TRX TRX00002976\u0027, \u0027type\u0027: \u0027transaction\u0027, \u0027date\u0027: \u00272020-04-24\u0027, \u0027amount\u0027: 9669.51}"}, {"color": "orange", "id": "TRX00009393", "label": "TRX TRX00009393", "shape": "diamond", "title": "{\u0027label\u0027: \u0027TRX TRX00009393\u0027, \u0027type\u0027: \u0027transaction\u0027, \u0027date\u0027: \u00272020-09-21\u0027, \u0027amount\u0027: 31436.52}"}, {"color": "orange", "id": "TRX00006752", "label": "TRX TRX00006752", "shape": "diamond", "title": "{\u0027label\u0027: \u0027TRX TRX00006752\u0027, \u0027type\u0027: \u0027transaction\u0027, \u0027date\u0027: \u00272020-11-18\u0027, \u0027amount\u0027: 23295.05}"}, {"color": "orange", "id": "TRX00004472", "label": "TRX TRX00004472", "shape": "diamond", "title": "{\u0027label\u0027: \u0027TRX TRX00004472\u0027, \u0027type\u0027: \u0027transaction\u0027, \u0027date\u0027: \u00272020-12-18\u0027, \u0027amount\u0027: 447.18}"}, {"color": "orange", "id": "TRX00009783", "label": "TRX TRX00009783", "shape": "diamond", "title": "{\u0027label\u0027: \u0027TRX TRX00009783\u0027, \u0027type\u0027: \u0027transaction\u0027, \u0027date\u0027: \u00272020-12-18\u0027, \u0027amount\u0027: 725.08}"}, {"color": "orange", "id": "TRX00007236", "label": "TRX TRX00007236", "shape": "diamond", "title": "{\u0027label\u0027: \u0027TRX TRX00007236\u0027, \u0027type\u0027: \u0027transaction\u0027, \u0027date\u0027: \u00272021-03-12\u0027, \u0027amount\u0027: 46981.59}"}, {"color": "orange", "id": "TRX00000198", "label": "TRX TRX00000198", "shape": "diamond", "title": "{\u0027label\u0027: \u0027TRX TRX00000198\u0027, \u0027type\u0027: \u0027transaction\u0027, \u0027date\u0027: \u00272021-04-18\u0027, \u0027amount\u0027: 4595.79}"}, {"color": "orange", "id": "TRX00005677", "label": "TRX TRX00005677", "shape": "diamond", "title": "{\u0027label\u0027: \u0027TRX TRX00005677\u0027, \u0027type\u0027: \u0027transaction\u0027, \u0027date\u0027: \u00272022-06-26\u0027, \u0027amount\u0027: 873.25}"}, {"color": "orange", "id": "TRX00002521", "label": "TRX TRX00002521", "shape": "diamond", "title": "{\u0027label\u0027: \u0027TRX TRX00002521\u0027, \u0027type\u0027: \u0027transaction\u0027, \u0027date\u0027: \u00272022-08-18\u0027, \u0027amount\u0027: 7299.58}"}, {"color": "orange", "id": "TRX00005617", "label": "TRX TRX00005617", "shape": "diamond", "title": "{\u0027label\u0027: \u0027TRX TRX00005617\u0027, \u0027type\u0027: \u0027transaction\u0027, \u0027date\u0027: \u00272022-10-03\u0027, \u0027amount\u0027: 7390.68}"}, {"color": "orange", "id": "TRX00000053", "label": "TRX TRX00000053", "shape": "diamond", "title": "{\u0027label\u0027: \u0027TRX TRX00000053\u0027, \u0027type\u0027: \u0027transaction\u0027, \u0027date\u0027: \u00272022-12-20\u0027, \u0027amount\u0027: 426.03}"}, {"color": "orange", "id": "TRX00000862", "label": "TRX TRX00000862", "shape": "diamond", "title": "{\u0027label\u0027: \u0027TRX TRX00000862\u0027, \u0027type\u0027: \u0027transaction\u0027, \u0027date\u0027: \u00272022-12-26\u0027, \u0027amount\u0027: 6458.26}"}, {"color": "orange", "id": "TRX00004120", "label": "TRX TRX00004120", "shape": "diamond", "title": "{\u0027label\u0027: \u0027TRX TRX00004120\u0027, \u0027type\u0027: \u0027transaction\u0027, \u0027date\u0027: \u00272023-05-29\u0027, \u0027amount\u0027: 4860.91}"}, {"color": "orange", "id": "TRX00009743", "label": "TRX TRX00009743", "shape": "diamond", "title": "{\u0027label\u0027: \u0027TRX TRX00009743\u0027, \u0027type\u0027: \u0027transaction\u0027, \u0027date\u0027: \u00272023-08-15\u0027, \u0027amount\u0027: 52.3}"}, {"color": "purple", "id": "ALT00001", "label": "Alert ALT00001", "shape": "star", "title": "{\u0027label\u0027: \u0027Alert ALT00001\u0027, \u0027type\u0027: \u0027alert\u0027, \u0027date\u0027: \u00272024-04-20\u0027, \u0027alert_type\u0027: \u0027Unusual Activity\u0027, \u0027status\u0027: \u0027Open\u0027}"}, {"color": "purple", "id": "ALT00005", "label": "Alert ALT00005", "shape": "star", "title": "{\u0027label\u0027: \u0027Alert ALT00005\u0027, \u0027type\u0027: \u0027alert\u0027, \u0027date\u0027: \u00272024-04-25\u0027, \u0027alert_type\u0027: \u0027Structuring\u0027, \u0027status\u0027: \u0027Open\u0027}"}, {"color": "red", "id": "SAR00002", "label": "SAR SAR00002", "shape": "box", "title": "{\u0027label\u0027: \u0027SAR SAR00002\u0027, \u0027type\u0027: \u0027sar\u0027, \u0027date\u0027: \u00272024-04-27\u0027}"}, {"color": "red", "id": "SAR00302", "label": "SAR SAR00302", "shape": "box", "title": "{\u0027label\u0027: \u0027SAR SAR00302\u0027, \u0027type\u0027: \u0027sar\u0027, \u0027date\u0027: \u00272024-05-01\u0027}"}, {"color": "purple", "id": "ALT00009", "label": "Alert ALT00009", "shape": "star", "title": "{\u0027label\u0027: \u0027Alert ALT00009\u0027, \u0027type\u0027: \u0027alert\u0027, \u0027date\u0027: \u00272024-05-01\u0027, \u0027alert_type\u0027: \u0027Unusual Activity\u0027, \u0027status\u0027: \u0027Open\u0027}"}, {"color": "purple", "id": "ALT00013", "label": "Alert ALT00013", "shape": "star", "title": "{\u0027label\u0027: \u0027Alert ALT00013\u0027, \u0027type\u0027: \u0027alert\u0027, \u0027date\u0027: \u00272024-05-05\u0027, \u0027alert_type\u0027: \u0027Structuring\u0027, \u0027status\u0027: \u0027Open\u0027}"}, {"color": "purple", "id": "ALT00017", "label": "Alert ALT00017", "shape": "star", "title": "{\u0027label\u0027: \u0027Alert ALT00017\u0027, \u0027type\u0027: \u0027alert\u0027, \u0027date\u0027: \u00272024-05-10\u0027, \u0027alert_type\u0027: \u0027Unusual Activity\u0027, \u0027status\u0027: \u0027Open\u0027}"}, {"color": "red", "id": "SAR00422", "label": "SAR SAR00422", "shape": "box", "title": "{\u0027label\u0027: \u0027SAR SAR00422\u0027, \u0027type\u0027: \u0027sar\u0027, \u0027date\u0027: \u00272024-08-10\u0027}"}, {"color": "red", "id": "SAR00059", "label": "SAR SAR00059", "shape": "box", "title": "{\u0027label\u0027: \u0027SAR SAR00059\u0027, \u0027type\u0027: \u0027sar\u0027, \u0027date\u0027: \u00272024-09-30\u0027}"}, {"color": "red", "id": "SAR00392", "label": "SAR SAR00392", "shape": "box", "title": "{\u0027label\u0027: \u0027SAR SAR00392\u0027, \u0027type\u0027: \u0027sar\u0027, \u0027date\u0027: \u00272024-12-23\u0027}"}, {"color": "red", "id": "SAR00420", "label": "SAR SAR00420", "shape": "box", "title": "{\u0027label\u0027: \u0027SAR SAR00420\u0027, \u0027type\u0027: \u0027sar\u0027, \u0027date\u0027: \u00272025-01-15\u0027}"}, {"color": "skyblue", "id": "CLI000020", "label": "Fran\u00e7ois Laurent", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Fran\u00e7ois Laurent\u0027, \u0027type\u0027: \u0027client\u0027}"}, {"color": "pink", "id": "Antoine Legrand", "label": "Antoine Legrand", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Antoine Legrand\u0027, \u0027type\u0027: \u0027accomplice\u0027}"}, {"color": "pink", "id": "Camille Kaddour", "label": "Camille Kaddour", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Camille Kaddour\u0027, \u0027type\u0027: \u0027accomplice\u0027}"}, {"color": "pink", "id": "Mathieu Blanc", "label": "Mathieu Blanc", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Mathieu Blanc\u0027, \u0027type\u0027: \u0027accomplice\u0027}"}, {"color": "pink", "id": "Julien Morel", "label": "Julien Morel", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Julien Morel\u0027, \u0027type\u0027: \u0027accomplice\u0027}"}, {"color": "pink", "id": "Antoine Bertrand", "label": "Antoine Bertrand", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Antoine Bertrand\u0027, \u0027type\u0027: \u0027accomplice\u0027}"}, {"color": "pink", "id": "Omar Ziani", "label": "Omar Ziani", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Omar Ziani\u0027, \u0027type\u0027: \u0027accomplice\u0027}"}, {"color": "pink", "id": "Omar Blanc", "label": "Omar Blanc", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Omar Blanc\u0027, \u0027type\u0027: \u0027accomplice\u0027}"}, {"color": "pink", "id": "Antoine Girard", "label": "Antoine Girard", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Antoine Girard\u0027, \u0027type\u0027: \u0027accomplice\u0027}"}, {"color": "pink", "id": "Amine Bonnet", "label": "Amine Bonnet", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Amine Bonnet\u0027, \u0027type\u0027: \u0027accomplice\u0027}"}, {"color": "pink", "id": "Camille El", "label": "Camille El", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Camille El\u0027, \u0027type\u0027: \u0027accomplice\u0027}"}, {"color": "pink", "id": "Samira Fournier", "label": "Samira Fournier", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Samira Fournier\u0027, \u0027type\u0027: \u0027accomplice\u0027}"}, {"color": "pink", "id": "Hong Kong", "label": "Hong Kong", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Hong Kong\u0027, \u0027type\u0027: \u0027accomplice\u0027}"}, {"color": "lightgreen", "id": "Ahmed Garcia", "label": "Ahmed Garcia", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Ahmed Garcia\u0027, \u0027type\u0027: \u0027counterparty\u0027}"}, {"color": "lightgreen", "id": "CyberServices", "label": "CyberServices", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027CyberServices\u0027, \u0027type\u0027: \u0027counterparty\u0027}"}, {"color": "lightgreen", "id": "Emma Smith", "label": "Emma Smith", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Emma Smith\u0027, \u0027type\u0027: \u0027counterparty\u0027}"}, {"color": "lightgreen", "id": "ProSyst\u00e8mes", "label": "ProSyst\u00e8mes", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027ProSyst\u00e8mes\u0027, \u0027type\u0027: \u0027counterparty\u0027}"}, {"color": "lightgreen", "id": "Fatima Dubois", "label": "Fatima Dubois", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Fatima Dubois\u0027, \u0027type\u0027: \u0027counterparty\u0027}"}, {"color": "skyblue", "id": "CLI000048", "label": "Jean Garcia", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Jean Garcia\u0027, \u0027type\u0027: \u0027client\u0027}"}, {"color": "lightgreen", "id": "Emma Martin", "label": "Emma Martin", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Emma Martin\u0027, \u0027type\u0027: \u0027counterparty\u0027}"}, {"color": "lightgreen", "id": "DigiSolutions", "label": "DigiSolutions", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027DigiSolutions\u0027, \u0027type\u0027: \u0027counterparty\u0027}"}, {"color": "lightgreen", "id": "DigiD\u00e9veloppement", "label": "DigiD\u00e9veloppement", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027DigiD\u00e9veloppement\u0027, \u0027type\u0027: \u0027counterparty\u0027}"}, {"color": "lightgreen", "id": "EuroServices", "label": "EuroServices", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027EuroServices\u0027, \u0027type\u0027: \u0027counterparty\u0027}"}, {"color": "lightgreen", "id": "Fatima Johnson", "label": "Fatima Johnson", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Fatima Johnson\u0027, \u0027type\u0027: \u0027counterparty\u0027}"}, {"color": "lightgreen", "id": "Jean Li", "label": "Jean Li", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Jean Li\u0027, \u0027type\u0027: \u0027counterparty\u0027}"}, {"color": "lightgreen", "id": "Michael Smith", "label": "Michael Smith", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027Michael Smith\u0027, \u0027type\u0027: \u0027counterparty\u0027}"}, {"color": "lightgreen", "id": "CyberTech", "label": "CyberTech", "shape": "ellipse", "title": "{\u0027label\u0027: \u0027CyberTech\u0027, \u0027type\u0027: \u0027counterparty\u0027}"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "CLI000020", "label": "subject", "to": "SAR00002"}, {"arrows": "to", "from": "CLI000020", "label": "subject", "to": "SAR00302"}, {"arrows": "to", "from": "CLI000020", "label": "subject", "to": "SAR00422"}, {"arrows": "to", "from": "CLI000020", "label": "subject", "to": "SAR00059"}, {"arrows": "to", "from": "CLI000020", "label": "subject", "to": "SAR00392"}, {"arrows": "to", "from": "CLI000020", "label": "subject", "to": "SAR00420"}, {"arrows": "to", "from": "CLI000020", "label": "initiated", "to": "TRX00002976"}, {"arrows": "to", "from": "CLI000020", "label": "initiated", "to": "TRX00009393"}, {"arrows": "to", "from": "CLI000020", "label": "initiated", "to": "TRX00006752"}, {"arrows": "to", "from": "CLI000020", "label": "initiated", "to": "TRX00004472"}, {"arrows": "to", "from": "CLI000020", "label": "initiated", "to": "TRX00009783"}, {"arrows": "to", "from": "CLI000020", "label": "initiated", "to": "TRX00007236"}, {"arrows": "to", "from": "CLI000020", "label": "initiated", "to": "TRX00000198"}, {"arrows": "to", "from": "CLI000020", "label": "initiated", "to": "TRX00005677"}, {"arrows": "to", "from": "CLI000020", "label": "initiated", "to": "TRX00002521"}, {"arrows": "to", "from": "CLI000020", "label": "initiated", "to": "TRX00005617"}, {"arrows": "to", "from": "CLI000020", "label": "initiated", "to": "TRX00000053"}, {"arrows": "to", "from": "CLI000020", "label": "initiated", "to": "TRX00000862"}, {"arrows": "to", "from": "CLI000020", "label": "initiated", "to": "TRX00004120"}, {"arrows": "to", "from": "CLI000020", "label": "initiated", "to": "TRX00009743"}, {"arrows": "to", "from": "CLI000020", "label": "alerted", "to": "ALT00001"}, {"arrows": "to", "from": "CLI000020", "label": "alerted", "to": "ALT00005"}, {"arrows": "to", "from": "CLI000020", "label": "alerted", "to": "ALT00009"}, {"arrows": "to", "from": "CLI000020", "label": "alerted", "to": "ALT00013"}, {"arrows": "to", "from": "CLI000020", "label": "alerted", "to": "ALT00017"}, {"arrows": "to", "from": "SAR00002", "label": "accomplice", "to": "Antoine Legrand"}, {"arrows": "to", "from": "SAR00002", "label": "accomplice", "to": "Camille Kaddour"}, {"arrows": "to", "from": "SAR00302", "label": "accomplice", "to": "Mathieu Blanc"}, {"arrows": "to", "from": "SAR00302", "label": "accomplice", "to": "Julien Morel"}, {"arrows": "to", "from": "SAR00422", "label": "accomplice", "to": "Antoine Bertrand"}, {"arrows": "to", "from": "SAR00422", "label": "accomplice", "to": "Omar Ziani"}, {"arrows": "to", "from": "SAR00059", "label": "accomplice", "to": "Omar Blanc"}, {"arrows": "to", "from": "SAR00392", "label": "accomplice", "to": "Antoine Girard"}, {"arrows": "to", "from": "SAR00392", "label": "accomplice", "to": "Amine Bonnet"}, {"arrows": "to", "from": "SAR00420", "label": "accomplice", "to": "Camille El"}, {"arrows": "to", "from": "SAR00420", "label": "accomplice", "to": "Samira Fournier"}, {"arrows": "to", "from": "SAR00420", "label": "accomplice", "to": "Hong Kong"}, {"arrows": "to", "from": "TRX00002976", "label": "to", "to": "Ahmed Garcia"}, {"arrows": "to", "from": "TRX00002976", "label": "flagged (2020-04-24 00:00:00)", "to": "SAR00002"}, {"arrows": "to", "from": "TRX00002976", "label": "flagged (2020-04-24 00:00:00)", "to": "SAR00059"}, {"arrows": "to", "from": "TRX00009393", "label": "to", "to": "CyberServices"}, {"arrows": "to", "from": "TRX00009393", "label": "flagged (2020-09-21 00:00:00)", "to": "SAR00392"}, {"arrows": "to", "from": "TRX00006752", "label": "to", "to": "Emma Smith"}, {"arrows": "to", "from": "TRX00006752", "label": "flagged (2020-11-18 00:00:00)", "to": "SAR00422"}, {"arrows": "to", "from": "TRX00004472", "label": "to", "to": "ProSyst\u00e8mes"}, {"arrows": "to", "from": "TRX00004472", "label": "flagged (2020-12-18 00:00:00)", "to": "SAR00422"}, {"arrows": "to", "from": "TRX00009783", "label": "to", "to": "Fatima Dubois"}, {"arrows": "to", "from": "TRX00009783", "label": "flagged (2020-12-18 00:00:00)", "to": "SAR00302"}, {"arrows": "to", "from": "TRX00007236", "label": "to", "to": "CLI000048"}, {"arrows": "to", "from": "TRX00007236", "label": "flagged (2021-03-12 00:00:00)", "to": "SAR00302"}, {"arrows": "to", "from": "TRX00000198", "label": "to", "to": "Emma Martin"}, {"arrows": "to", "from": "TRX00000198", "label": "flagged (2021-04-18 00:00:00)", "to": "SAR00420"}, {"arrows": "to", "from": "TRX00005677", "label": "to", "to": "DigiSolutions"}, {"arrows": "to", "from": "TRX00005677", "label": "flagged (2022-06-26 00:00:00)", "to": "SAR00422"}, {"arrows": "to", "from": "TRX00002521", "label": "to", "to": "DigiD\u00e9veloppement"}, {"arrows": "to", "from": "TRX00002521", "label": "flagged (2022-08-18 00:00:00)", "to": "SAR00059"}, {"arrows": "to", "from": "TRX00005617", "label": "to", "to": "EuroServices"}, {"arrows": "to", "from": "TRX00005617", "label": "flagged (2022-10-03 00:00:00)", "to": "SAR00392"}, {"arrows": "to", "from": "TRX00000053", "label": "to", "to": "Fatima Johnson"}, {"arrows": "to", "from": "TRX00000053", "label": "flagged (2022-12-20 00:00:00)", "to": "SAR00392"}, {"arrows": "to", "from": "TRX00000862", "label": "to", "to": "Jean Li"}, {"arrows": "to", "from": "TRX00000862", "label": "flagged (2022-12-26 00:00:00)", "to": "SAR00422"}, {"arrows": "to", "from": "TRX00004120", "label": "to", "to": "Michael Smith"}, {"arrows": "to", "from": "TRX00004120", "label": "flagged (2023-05-29 00:00:00)", "to": "SAR00420"}, {"arrows": "to", "from": "TRX00009743", "label": "to", "to": "CyberTech"}, {"arrows": "to", "from": "TRX00009743", "label": "flagged (2023-08-15 00:00:00)", "to": "SAR00002"}, {"arrows": "to", "from": "TRX00009743", "label": "flagged (2023-08-15 00:00:00)", "to": "SAR00059"}, {"arrows": "to", "from": "ALT00001", "label": "linked_sar", "to": "SAR00002"}, {"arrows": "to", "from": "ALT00005", "label": "linked_sar", "to": "SAR00002"}, {"arrows": "to", "from": "ALT00009", "label": "linked_sar", "to": "SAR00002"}, {"arrows": "to", "from": "ALT00013", "label": "linked_sar", "to": "SAR00002"}, {"arrows": "to", "from": "ALT00017", "label": "linked_sar", "to": "SAR00002"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
