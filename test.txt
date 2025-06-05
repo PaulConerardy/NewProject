@@ -70,3 +70,88 @@ def calculate_score(self, entity_id, transactions_df, wires_df, entity_df):
         # Plafonner au score maximum
         normalized_score = min(score, self.max_score)
         return normalized_score, triggered_rules 
+
+
+
+
+
+# new_inconsistent_activity_logic.py (This is a proposed new file to show the function)
+
+import pandas as pd
+import numpy as np
+
+# Assuming this function would be part of the RuleBasedDetection class,
+# it would have access to self.config, self.threshold_amount, etc.
+
+def detect_inconsistent_activity_v2(self, entity_id, transactions_df, wires_df, entity_df):
+    """
+    Détecte une activité incohérente avec le profil ou le type d'entreprise
+    en comparant l'activité de l'entité aux moyennes de son groupe de pairs via le Z-score.
+    """
+    count = 0
+    
+    if entity_df is None or entity_df.empty or transactions_df is None or transactions_df.empty:
+        return 0
+
+    entity_info = entity_df[entity_df['party_key'] == entity_id]
+    if entity_info.empty:
+        return 0
+
+    entity_peer_group = entity_info['peer_group'].iloc[0] # Assuming 'peer_group' column exists
+    if not entity_peer_group: # Handle cases where peer group might be missing
+        return 0
+
+    # 1. Get entity's aggregated transaction data
+    entity_txns = transactions_df[transactions_df['party_key'] == entity_id].copy()
+    if entity_txns.empty:
+        return 0
+
+    entity_agg_data = entity_txns.groupby('transaction_type_desc')['amount'].sum().reset_index()
+    entity_agg_data.set_index('transaction_type_desc', inplace=True)
+
+    # 2. Get peer group's aggregated transaction data
+    peer_group_entities = entity_df[entity_df['peer_group'] == entity_peer_group]['party_key'].tolist()
+    
+    # Exclude the current entity from its own peer group average if desired, or include it.
+    # For now, let's include it for simplicity, as it won't drastically skew large groups.
+    peer_group_txns = transactions_df[transactions_df['party_key'].isin(peer_group_entities)].copy()
+    
+    if peer_group_txns.empty:
+        return 0
+
+    # Aggregate peer group data by transaction type and by entity
+    peer_group_agg_by_entity_type = peer_group_txns.groupby(['party_key', 'transaction_type_desc'])['amount'].sum().unstack(fill_value=0)
+
+    # Calculate mean and standard deviation for each transaction type within the peer group
+    peer_group_means = peer_group_agg_by_entity_type.mean()
+    peer_group_stds = peer_group_agg_by_entity_type.std()
+
+    # Define a small epsilon to avoid division by zero for standard deviation
+    epsilon = 1e-9
+
+    # 3. Compare and calculate z-scores
+    for trx_type, entity_amount in entity_agg_data['amount'].items():
+        if trx_type in peer_group_means and trx_type in peer_group_stds:
+            peer_mean = peer_group_means[trx_type]
+            peer_std = peer_group_stds[trx_type]
+
+            # Handle cases where entity_amount might be 0 but peer_mean is not, or vice-versa
+            # Also handle zero standard deviation
+            if peer_std < epsilon: # If std dev is virtually zero, all values are the same
+                if entity_amount != peer_mean: # If entity's value is different from the constant peer value
+                    z_score = np.inf # Treat as infinitely different
+                else:
+                    z_score = 0 # Entity is consistent with the constant peer value
+            else:
+                z_score = (entity_amount - peer_mean) / peer_std
+            
+            # 4. Assign score based on z-score
+            # You can adjust these thresholds and scores based on your requirements
+            if abs(z_score) >= 3.0: # Highly inconsistent
+                count += 3
+            elif abs(z_score) >= 2.0: # Moderately inconsistent
+                count += 2
+            elif abs(z_score) >= 1.0: # Slightly inconsistent
+                count += 1
+    
+    return self._get_graduated_score('inconsistent_activity', count)
