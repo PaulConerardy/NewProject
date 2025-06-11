@@ -5,7 +5,6 @@ import yaml
 import json
 from rule_based_detection import RuleBasedDetection
 from visualization import Visualizer
-from alert import Alert
 
 class DetectionRunner:
     def __init__(self, config_path='config.yaml'):
@@ -31,6 +30,9 @@ class DetectionRunner:
         
         # Définir le seuil d'alerte
         self.alert_threshold = self.config['alert_threshold']
+        
+        # Initialiser le visualiseur
+        self.visualizer = Visualizer()
         
     def _create_output_dirs(self):
         """Créer les répertoires de sortie s'ils n'existent pas."""
@@ -81,7 +83,7 @@ class DetectionRunner:
         """
         # Préparer les DataFrames de résultats
         alerted_accounts = []
-        flagged_transactions = []
+        all_flagged_transactions_for_saving = []
         
         # Obtenir les IDs uniques des entités
         if entity_df is not None and not entity_df.empty:
@@ -96,7 +98,7 @@ class DetectionRunner:
         # Traiter chaque entité
         for entity_id in entity_ids:
             # Calculer le score pour l'entité
-            score, triggered_rules = self.detector.calculate_score(entity_id, transactions_df, wires_df, entity_df)
+            score, triggered_rules, entity_flagged_txns, entity_flagged_wires = self.detector.calculate_score(entity_id, transactions_df, wires_df, entity_df)
             
             # Si le score est supérieur au seuil, alerter le compte
             if score >= self.alert_threshold:
@@ -115,73 +117,91 @@ class DetectionRunner:
                 }
                 alerted_accounts.append(account_record)
                 
-                # Marquer toutes les transactions pour cette entité
-                if transactions_df is not None and not transactions_df.empty:
-                    entity_txns = transactions_df[transactions_df['party_key'] == entity_id].copy()
-                    if not entity_txns.empty:
-                        # Ajouter les informations de marquage
-                        entity_txns['is_flagged'] = 1
-                        entity_txns['total_score'] = score
-                        
-                        # Déterminer quelles règles ont contribué à chaque transaction
-                        for rule, rule_score in triggered_rules.items():
-                            entity_txns[f'rule_{rule}'] = rule_score
-                        
-                        flagged_transactions.append(entity_txns)
-                
-                # Marquer tous les virements pour cette entité
-                if wires_df is not None and not wires_df.empty:
-                    entity_wires = wires_df[wires_df['party_key'] == entity_id].copy()
-                    if not entity_wires.empty:
-                        # Ajouter les informations de marquage
-                        entity_wires['is_flagged'] = 1
-                        entity_wires['total_score'] = score
-                        
-                        # Déterminer quelles règles ont contribué à chaque virement
-                        for rule, rule_score in triggered_rules.items():
-                            entity_wires[f'rule_{rule}'] = rule_score
-                        
-                        flagged_transactions.append(entity_wires)
+                # Marquer les transactions et virements qui ont été identifiés par les règles
+                current_entity_flagged_data = []
+                if not entity_flagged_txns.empty:
+                    current_entity_flagged_data.append(entity_flagged_txns)
+                if not entity_flagged_wires.empty:
+                    current_entity_flagged_data.append(entity_flagged_wires)
+
+                if current_entity_flagged_data:
+                    combined_flagged_data = pd.concat(current_entity_flagged_data, ignore_index=True)
+                    combined_flagged_data['is_flagged'] = 1
+                    combined_flagged_data['total_score'] = score
+
+                    # Add rule scores to the flagged transactions/wires
+                    for rule, rule_score in triggered_rules.items():
+                        # Only add rule columns that are actually present in the data
+                        if rule in self.detector.get_rule_descriptions(): # Check if it's a known rule
+                             combined_flagged_data[f'rule_{rule}'] = rule_score
+                    
+                    all_flagged_transactions_for_saving.append(combined_flagged_data)
+
         
         # Créer les DataFrames finaux
         alerted_accounts_df = pd.DataFrame(alerted_accounts) if alerted_accounts else pd.DataFrame()
-        flagged_transactions_df = pd.concat(flagged_transactions) if flagged_transactions else pd.DataFrame()
+        flagged_transactions_df = pd.concat(all_flagged_transactions_for_saving) if all_flagged_transactions_for_saving else pd.DataFrame()
+
+        # Drop duplicates based on a combination of identifying columns, adjust as needed for your data schema
+        # For transactions, 'party_key', 'account_key', 'trx_date', 'amount', 'transaction_id' might be relevant
+        # For wires, 'party_key', 'wire_date', 'amount', 'wire_id' might be relevant
+        # Given that we are concatenating both transactions and wires, a general approach is needed.
+        # If 'transaction_id' and 'wire_id' exist, use them. Otherwise, use all columns.
+        if 'transaction_id' in flagged_transactions_df.columns and 'wire_id' in flagged_transactions_df.columns:
+            flagged_transactions_df = flagged_transactions_df.drop_duplicates(subset=['transaction_id', 'wire_id'])
+        elif 'transaction_id' in flagged_transactions_df.columns:
+            flagged_transactions_df = flagged_transactions_df.drop_duplicates(subset=['transaction_id'])
+        elif 'wire_id' in flagged_transactions_df.columns:
+            flagged_transactions_df = flagged_transactions_df.drop_duplicates(subset=['wire_id'])
+        else:
+            # Fallback if no specific IDs are available, might be less precise
+            flagged_transactions_df = flagged_transactions_df.drop_duplicates()
+
         
         return alerted_accounts_df, flagged_transactions_df
     
     def save_results(self, alerted_accounts_df, flagged_transactions_df):
         """
-        Cette méthode est maintenant dépréciée car la sauvegarde est gérée par la classe Alert dans la méthode run.
-        Elle est conservée ici comme espace réservé ou peut être supprimée si elle n'est pas appelée ailleurs.
+        Sauvegarder les résultats de détection dans les fichiers de sortie.
+        
+        Args:
+            alerted_accounts_df (DataFrame): Données des comptes alertés.
+            flagged_transactions_df (DataFrame): Données des transactions marquées.
         """
-        # La logique de sauvegarde réelle a été déplacée vers Alert.save_alerts, appelée dans run().
-        # Cette méthode peut être supprimée ou refactorisée si nécessaire.
-        print("Note : La méthode save_results dans DetectionRunner est dépréciée. La sauvegarde est gérée par la classe Alert dans run().")
-
+        if not alerted_accounts_df.empty:
+            alerted_accounts_df.to_csv(self.output_paths['alerted_accounts'], index=False)
+            print(f"Comptes alertés sauvegardés dans {self.output_paths['alerted_accounts']}")
+        else:
+            print("Aucun compte n'a été alerté.")
+        
+        if not flagged_transactions_df.empty:
+            flagged_transactions_df.to_csv(self.output_paths['flagged_transactions'], index=False)
+            print(f"Transactions marquées sauvegardées dans {self.output_paths['flagged_transactions']}")
+        else:
+            print("Aucune transaction n'a été marquée.")
+        
+        # Générer les visualisations
+        if not alerted_accounts_df.empty:
+            print("Génération des visualisations...")
+            self.visualizer.visualize_detection_results(alerted_accounts_df, flagged_transactions_df)
+            print(f"Visualisations sauvegardées dans {self.visualizer.output_dir}")
+    
     def run(self):
         """Méthode principale d'exécution pour lancer le processus de détection."""
         print("Chargement des données...")
         entity_df, transactions_df, wires_df = self.load_data()
         
-        # Instancier Visualizer et Alert après le chargement des données
-        visualizer_instance = Visualizer()
-        alert_saver = Alert(self.output_paths, entity_df, visualizer_instance)
-        
         print("Exécution de la détection...")
         alerted_accounts_df, flagged_transactions_df = self.run_detection(entity_df, transactions_df, wires_df)
         
-        print("Sauvegarde des résultats et génération de visualisations...")
-        # Utiliser l'objet Alert instancié pour sauvegarder les résultats et générer les visualisations
-        alert_saver.save_alerts(alerted_accounts_df, flagged_transactions_df)
-        alert_saver.generate_visualizations(alerted_accounts_df, flagged_transactions_df)
+        print("Sauvegarde des résultats...")
+        self.save_results(alerted_accounts_df, flagged_transactions_df)
         
         print("Détection terminée.")
         if not alerted_accounts_df.empty:
             print(f"{len(alerted_accounts_df)} comptes alertés.")
-            # Note : La longueur de flagged_transactions_df ici est le total avant l'agrégation par client,
-            # le fichier sauvegardé reflète les données au niveau transactionnel.
             print(f"{len(flagged_transactions_df)} transactions marquées.")
-        
+            
         return alerted_accounts_df, flagged_transactions_df
 
 
