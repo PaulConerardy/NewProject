@@ -1,21 +1,20 @@
-Voici le script modifié pour utiliser uniquement des opérations sur des DataFrames PySpark :
+Voici le script modifié pour éviter l'utilisation de VectorAssembler :
 
 ```python
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, desc, row_number
+from pyspark.sql.functions import col, desc, row_number, array, struct, when, sum as spark_sum, count, mean
 from pyspark.sql.window import Window
-from pyspark.sql.types import StructType, StructField, DoubleType, IntegerType
-from pyspark.ml.feature import VectorAssembler
-from pyspark.ml.classification import RandomForestClassifier, GBTClassifier
-from pyspark.ml.evaluation import BinaryClassificationEvaluator
-from pyspark.ml import Pipeline
+from pyspark.sql.types import StructType, StructField, DoubleType, IntegerType, StringType
+from pyspark.ml.stat import Correlation
+from pyspark.ml.feature import StringIndexer
+import numpy as np
 
 # Initialiser Spark
 spark = SparkSession.builder \
-    .appName("FeatureImportancePySpark") \
+    .appName("FeatureImportanceWithoutVectorAssembler") \
     .getOrCreate()
 
-# Créer un dataset synthétique avec PySpark DataFrame
+# Créer un dataset synthétique
 schema = StructType([
     StructField("feature1", DoubleType(), True),
     StructField("feature2", DoubleType(), True),
@@ -31,165 +30,233 @@ data = [(1.0, 2.0, 3.0, 5.0, 1),
         (5.0, 6.0, 7.0, 9.0, 1),
         (6.0, 7.0, 8.0, 10.0, 0),
         (7.0, 8.0, 9.0, 11.0, 1),
-        (8.0, 9.0, 10.0, 12.0, 0)]
+        (8.0, 9.0, 10.0, 12.0, 0),
+        (9.0, 10.0, 11.0, 13.0, 1),
+        (10.0, 11.0, 12.0, 14.0, 0)]
 
 df = spark.createDataFrame(data, schema)
 
-# Ou charger vos données
-# df = spark.read.csv("path/to/your/data.csv", header=True, inferSchema=True)
-
-# Afficher les données
 print("Dataset:")
 df.show()
 
-# Obtenir les noms des features (exclure la colonne label)
+# Obtenir les noms des features
 feature_columns = [col_name for col_name in df.columns if col_name != "label"]
+print(f"Features: {feature_columns}")
 
-# Préparer les features
-assembler = VectorAssembler(
-    inputCols=feature_columns,
-    outputCol="features"
-)
+# Méthode 1: Calcul de corrélation avec le label
+print("\n=== MÉTHODE 1: CORRÉLATION AVEC LE LABEL ===")
 
-# Créer le modèle Random Forest
-rf = RandomForestClassifier(
-    featuresCol="features",
-    labelCol="label",
-    numTrees=100,
-    seed=42
-)
+correlation_results = []
+for feature in feature_columns:
+    # Calculer la corrélation de Pearson entre chaque feature et le label
+    corr_df = df.select(feature, "label")
+    corr_value = corr_df.stat.corr(feature, "label")
+    correlation_results.append((feature, abs(corr_value)))
 
-# Créer le pipeline
-pipeline = Pipeline(stages=[assembler, rf])
-
-# Diviser les données avec PySpark
-train_df = df.sample(fraction=0.8, seed=42)
-test_df = df.subtract(train_df)
-
-print(f"Taille train: {train_df.count()}")
-print(f"Taille test: {test_df.count()}")
-
-# Entraîner le modèle
-model = pipeline.fit(train_df)
-
-# Faire des prédictions
-predictions = model.transform(test_df)
-
-# Afficher les prédictions
-print("Prédictions:")
-predictions.select("label", "prediction", "probability").show()
-
-# Évaluer le modèle
-evaluator = BinaryClassificationEvaluator(
-    rawPredictionCol="rawPrediction",
-    labelCol="label",
-    metricName="areaUnderROC"
-)
-auc = evaluator.evaluate(predictions)
-print(f"AUC: {auc:.3f}")
-
-# Extraire l'importance des variables avec PySpark DataFrame
-rf_model = model.stages[1]
-feature_importance_array = rf_model.featureImportances.toArray()
-
-# Créer un DataFrame PySpark avec les importances
-importance_data = list(zip(feature_columns, feature_importance_array))
-importance_schema = StructType([
+# Créer un DataFrame avec les corrélations
+corr_schema = StructType([
     StructField("feature", StringType(), True),
-    StructField("importance", DoubleType(), True)
+    StructField("correlation_abs", DoubleType(), True)
 ])
 
-from pyspark.sql.types import StringType
-importance_df = spark.createDataFrame(importance_data, importance_schema)
+correlation_df = spark.createDataFrame(correlation_results, corr_schema)
+correlation_sorted = correlation_df.orderBy(desc("correlation_abs"))
 
-# Trier par importance décroissante
-importance_df_sorted = importance_df.orderBy(desc("importance"))
+print("Importance basée sur la corrélation absolue:")
+correlation_sorted.show()
 
-print("\nImportance des variables (Random Forest):")
-importance_df_sorted.show()
+# Méthode 2: Information Gain (approximation avec entropie)
+print("\n=== MÉTHODE 2: INFORMATION GAIN (APPROXIMATION) ===")
 
-# Ajouter un rang pour chaque feature
-window_spec = Window.orderBy(desc("importance"))
-importance_with_rank = importance_df_sorted.withColumn(
-    "rank", 
-    row_number().over(window_spec)
+# Calculer l'entropie du label
+total_count = df.count()
+label_counts = df.groupBy("label").count()
+
+# Calculer l'entropie totale
+entropy_components = label_counts.withColumn(
+    "prob", col("count") / total_count
+).withColumn(
+    "entropy_part", -col("prob") * (col("prob").alias("log_prob"))
 )
 
-print("Importance avec rang:")
-importance_with_rank.show()
+# Pour approximer le log, on utilise une transformation
+# Note: PySpark n'a pas de fonction log directe dans SQL, donc on utilise une approximation
+def calculate_entropy_gain(df, feature_col, label_col):
+    """Calcule un proxy pour l'information gain"""
+    
+    # Discrétiser la feature continue en quartiles
+    quantiles = df.approxQuantile(feature_col, [0.25, 0.5, 0.75], 0.01)
+    
+    # Créer des buckets
+    df_buckets = df.withColumn(
+        f"{feature_col}_bucket",
+        when(col(feature_col) <= quantiles[0], 0)
+        .when(col(feature_col) <= quantiles[1], 1)
+        .when(col(feature_col) <= quantiles[2], 2)
+        .otherwise(3)
+    )
+    
+    # Calculer la pureté de chaque bucket
+    bucket_purity = df_buckets.groupBy(f"{feature_col}_bucket").agg(
+        count("*").alias("total_count"),
+        spark_sum(when(col(label_col) == 1, 1).otherwise(0)).alias("positive_count")
+    ).withColumn(
+        "purity", 
+        when(col("total_count") == 0, 0.0)
+        .otherwise(abs(col("positive_count") / col("total_count") - 0.5) * 2)
+    )
+    
+    # Calculer la pureté pondérée moyenne
+    total_samples = df_buckets.count()
+    weighted_purity = bucket_purity.withColumn(
+        "weight", col("total_count") / total_samples
+    ).withColumn(
+        "weighted_purity", col("weight") * col("purity")
+    ).agg(spark_sum("weighted_purity")).collect()[0][0]
+    
+    return weighted_purity if weighted_purity else 0.0
 
-# Alternative avec Gradient Boosted Trees
-gbt = GBTClassifier(
-    featuresCol="features",
-    labelCol="label",
-    maxIter=50
-)
+information_gain_results = []
+for feature in feature_columns:
+    gain = calculate_entropy_gain(df, feature, "label")
+    information_gain_results.append((feature, gain))
 
-pipeline_gbt = Pipeline(stages=[assembler, gbt])
-model_gbt = pipeline_gbt.fit(train_df)
-gbt_model = model_gbt.stages[1]
+# Créer DataFrame pour information gain
+ig_schema = StructType([
+    StructField("feature", StringType(), True),
+    StructField("information_gain", DoubleType(), True)
+])
 
-# Extraire importance GBT
-gbt_importance_array = gbt_model.featureImportances.toArray()
-gbt_importance_data = list(zip(feature_columns, gbt_importance_array))
+ig_df = spark.createDataFrame(information_gain_results, ig_schema)
+ig_sorted = ig_df.orderBy(desc("information_gain"))
 
-gbt_importance_df = spark.createDataFrame(gbt_importance_data, importance_schema)
-gbt_importance_df_sorted = gbt_importance_df.orderBy(desc("importance"))
+print("Importance basée sur l'Information Gain:")
+ig_sorted.show()
 
-print("\nImportance des variables (GBT):")
-gbt_importance_df_sorted.show()
+# Méthode 3: Variance et séparation des classes
+print("\n=== MÉTHODE 3: SÉPARATION DES CLASSES ===")
 
-# Comparer les deux méthodes avec un join
-comparison_df = importance_df.alias("rf").join(
-    gbt_importance_df.alias("gbt"), 
-    col("rf.feature") == col("gbt.feature")
-).select(
-    col("rf.feature").alias("feature"),
-    col("rf.importance").alias("rf_importance"),
-    col("gbt.importance").alias("gbt_importance")
-).orderBy(desc("rf_importance"))
+def calculate_class_separation(df, feature_col, label_col):
+    """Calcule la différence entre les moyennes des deux classes"""
+    
+    stats_by_class = df.groupBy(label_col).agg(
+        mean(feature_col).alias("mean_feature")
+    )
+    
+    means = stats_by_class.select("mean_feature").collect()
+    if len(means) >= 2:
+        return abs(means[0][0] - means[1][0])
+    return 0.0
 
-print("Comparaison RF vs GBT:")
-comparison_df.show()
+separation_results = []
+for feature in feature_columns:
+    separation = calculate_class_separation(df, feature, "label")
+    separation_results.append((feature, separation))
 
-# Calculer des statistiques sur les importances
-print("Statistiques des importances RF:")
-importance_df.select("importance").describe().show()
+# Créer DataFrame pour séparation des classes
+sep_schema = StructType([
+    StructField("feature", StringType(), True),
+    StructField("class_separation", DoubleType(), True)
+])
 
-# Filtrer les features les plus importantes (seuil > moyenne)
-avg_importance = importance_df.agg({"importance": "avg"}).collect()[0][0]
-important_features = importance_df.filter(col("importance") > avg_importance)
+separation_df = spark.createDataFrame(separation_results, sep_schema)
+separation_sorted = separation_df.orderBy(desc("class_separation"))
 
-print(f"Features au-dessus de la moyenne ({avg_importance:.3f}):")
-important_features.orderBy(desc("importance")).show()
+print("Importance basée sur la séparation des classes:")
+separation_sorted.show()
 
-# Calculer le pourcentage d'importance cumulée
-total_importance = importance_df.agg({"importance": "sum"}).collect()[0][0]
-importance_with_percentage = importance_df_sorted.withColumn(
-    "importance_percentage", 
-    (col("importance") / total_importance) * 100
-)
+# Méthode 4: Analyse univariée simple
+print("\n=== MÉTHODE 4: ANALYSE UNIVARIÉE ===")
 
-print("Importance avec pourcentages:")
-importance_with_percentage.show()
+univariate_results = []
+for feature in feature_columns:
+    # Calculer statistiques par classe
+    stats = df.groupBy("label").agg(
+        mean(feature).alias("mean"),
+        count("*").alias("count")
+    ).collect()
+    
+    if len(stats) >= 2:
+        # Calcul d'un score basé sur la différence des moyennes et taille des échantillons
+        mean_diff = abs(stats[0]["mean"] - stats[1]["mean"])
+        total_count = stats[0]["count"] + stats[1]["count"]
+        score = mean_diff * np.sqrt(total_count)  # Pondérer par la taille
+        univariate_results.append((feature, score))
 
-# Sauvegarder les résultats (optionnel)
-# importance_df_sorted.write.mode("overwrite").csv("output/feature_importance")
-# comparison_df.write.mode("overwrite").csv("output/comparison")
+# Créer DataFrame pour analyse univariée
+univ_schema = StructType([
+    StructField("feature", StringType(), True),
+    StructField("univariate_score", DoubleType(), True)
+])
 
-# Fermer Spark
+univariate_df = spark.createDataFrame(univariate_results, univ_schema)
+univariate_sorted = univariate_df.orderBy(desc("univariate_score"))
+
+print("Importance basée sur l'analyse univariée:")
+univariate_sorted.show()
+
+# Combiner toutes les méthodes
+print("\n=== COMPARAISON DE TOUTES LES MÉTHODES ===")
+
+# Joindre tous les résultats
+final_comparison = correlation_sorted.alias("corr") \
+    .join(ig_sorted.alias("ig"), col("corr.feature") == col("ig.feature")) \
+    .join(separation_sorted.alias("sep"), col("corr.feature") == col("sep.feature")) \
+    .join(univariate_sorted.alias("univ"), col("corr.feature") == col("univ.feature")) \
+    .select(
+        col("corr.feature").alias("feature"),
+        col("corr.correlation_abs").alias("correlation"),
+        col("ig.information_gain").alias("info_gain"),
+        col("sep.class_separation").alias("separation"),
+        col("univ.univariate_score").alias("univariate")
+    )
+
+print("Comparaison de toutes les méthodes:")
+final_comparison.show()
+
+# Calculer un score combiné (moyenne des rangs)
+def add_rank_column(df, col_name, rank_col_name):
+    window_spec = Window.orderBy(desc(col_name))
+    return df.withColumn(rank_col_name, row_number().over(window_spec))
+
+# Ajouter des rangs pour chaque méthode
+ranked_corr = add_rank_column(correlation_sorted, "correlation_abs", "rank_corr")
+ranked_ig = add_rank_column(ig_sorted, "information_gain", "rank_ig")
+ranked_sep = add_rank_column(separation_sorted, "class_separation", "rank_sep")
+ranked_univ = add_rank_column(univariate_sorted, "univariate_score", "rank_univ")
+
+# Combiner les rangs
+combined_ranks = ranked_corr.select("feature", "rank_corr") \
+    .join(ranked_ig.select("feature", "rank_ig"), "feature") \
+    .join(ranked_sep.select("feature", "rank_sep"), "feature") \
+    .join(ranked_univ.select("feature", "rank_univ"), "feature") \
+    .withColumn(
+        "average_rank", 
+        (col("rank_corr") + col("rank_ig") + col("rank_sep") + col("rank_univ")) / 4
+    ).orderBy("average_rank")
+
+print("Classement final basé sur la moyenne des rangs:")
+combined_ranks.show()
+
+# Afficher les statistiques descriptives des features
+print("\n=== STATISTIQUES DESCRIPTIVES ===")
+for feature in feature_columns:
+    print(f"\nStatistiques pour {feature}:")
+    df.select(feature).describe().show()
+
 spark.stop()
 ```
 
-Les principales modifications apportées :
+Ce script modifié évite complètement l'utilisation de VectorAssembler et propose plusieurs méthodes alternatives pour évaluer l'importance des features :
 
-1. **Création de DataFrames PySpark** : Utilisation de `spark.createDataFrame()` avec des schémas explicites
-2. **Opérations sur DataFrames** : Remplacement de pandas par des opérations PySpark natives
-3. **Tri et filtrage** : Utilisation de `orderBy()`, `filter()`, et `select()`
-4. **Fonctions d'agrégation** : `agg()`, `describe()`, `sum()`, `avg()`
-5. **Fonctions Window** : `row_number()` pour ajouter des rangs
-6. **Joins** : Comparaison des méthodes avec `join()`
-7. **Calculs de pourcentages** : Avec des opérations de colonnes PySpark
-8. **Pas de conversion vers pandas** : Tout reste dans l'écosystème PySpark
+1. **Corrélation avec le label** : Mesure la corrélation linéaire entre chaque feature et la variable cible
 
-Ce script est maintenant entièrement basé sur des opérations de DataFrames PySpark et peut gérer de gros volumes de données de manière distribuée.
+2. **Information Gain approximé** : Discrétise les features continues et calcule une approximation du gain d'information
+
+3. **Séparation des classes** : Mesure la différence entre les moyennes des deux classes pour chaque feature
+
+4. **Analyse univariée** : Combine la différence des moyennes avec la taille de l'échantillon
+
+5. **Score combiné** : Calcule la moyenne des rangs de toutes les méthodes pour obtenir un classement final
+
+Ces méthodes utilisent uniquement des opérations natives de PySpark DataFrame et fournissent une évaluation de l'importance des variables sans avoir recours aux algorithmes ML traditionnels qui nécessitent VectorAssembler.
